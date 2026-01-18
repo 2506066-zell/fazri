@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- Meta tags untuk responsif dan charset -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard - Sistem Perpustakaan Digital IPM">
+    <meta name="theme-color" content="#006400">
+    
+    <title>Dashboard - Digital Library</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style-refactored.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Inline Styles - Page specific (keep minimal) -->
+    <style>
+        /* Dashboard specific styles */
+        .dashboard-header h1 {
+            color: white;
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #006400 0%, #004d00 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .articles-section {
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================================
+         HEADER - Navigation & User Info
+         ============================================================ -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <h1><i class="fas fa-book-reader"></i> Perpustakaan Digital IPM</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <div class="user-avatar">U</div>
+                <span id="userName">User</span>
+            </div>
+            <button onclick="logout()" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         MAIN CONTAINER - Sidebar & Content Layout
+         ============================================================ -->
+    <div class="dashboard-container">
+        <div class="dashboard-content" style="display: flex;">
+
+            <!-- ============================================================
+                 SIDEBAR - Navigation Menu
+                 ============================================================ -->
+            <nav class="dashboard-sidebar">
+                <!-- Home Link -->
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+
+                <!-- Borrowing Link - Hidden for admin -->
+                <a href="books.html" class="nav-item" id="peminjamMenu">
+                    <i class="fas fa-hand-holding-heart"></i> Peminjaman
+                </a>
+
+                <!-- Articles Link -->
+                <a href="artikel.html" class="nav-item">
+                    <i class="fas fa-newspaper"></i> Artikel
+                </a>
+
+                <!-- Returns Link -->
+                <a href="borrow.html" class="nav-item">
+                    <i class="fas fa-undo"></i> Pengembalian
+                </a>
+
+                <!-- Divider -->
+                <div class="sidebar-divider"></div>
+
+                <!-- Admin Menu - Only for admin users -->
+                <a href="admin.html" class="nav-item" id="adminMenu">
+                    <i class="fas fa-user-cog"></i> Admin
+                </a>
+
+                <!-- Divider -->
+                <div class="sidebar-divider"></div>
+
+                <!-- Logout Link -->
+                <a href="index.html" class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+
+            <!-- ============================================================
+                 MAIN CONTENT - Dashboard Content
+                 ============================================================ -->
+            <main class="dashboard-main">
+
+                <!-- ---- STATISTICS CARDS ---- -->
+                <div class="welcome-section">
+                    <h2 style="color: white; margin-bottom: 0.5rem;">
+                        <i class="fas fa-wave-square"></i> Selamat Datang!
+                    </h2>
+                    <p style="opacity: 0.9; margin: 0;">Kelola peminjaman dan pengembalian buku dengan mudah</p>
+                </div>
+
+                <!-- Statistics Dashboard -->
+                <div class="stats-container">
+                    <!-- Total Books Stat -->
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #d4edda; color: #006400;">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Total Buku</p>
+                        </div>
+                    </div>
+
+                    <!-- Active Borrowings Stat -->
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #cfe2ff; color: #006400;">
+                            <i class="fas fa-hand-holding"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Sedang Dipinjam</p>
+                        </div>
+                    </div>
+
+                    <!-- Available Books Stat -->
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff3cd; color: #856404;">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Tersedia</p>
+                        </div>
+                    </div>
+
+                    <!-- Due Books Stat -->
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #f8d7da; color: #721c24;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Jatuh Tempo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ---- RECENT ACTIVITY TABLE ---- -->
+                <div class="table-container">
+                    <h2 class="table-title">
+                        <i class="fas fa-history"></i> Aktivitas Terbaru
+                    </h2>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Buku</th>
+                                    <th>User</th>
+                                    <th>Aksi</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activityTable">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ---- LATEST ARTICLES SECTION ---- -->
+                <div class="articles-section">
+                    <h2 class="table-title">
+                        <i class="fas fa-newspaper"></i> Artikel Terbaru
+                    </h2>
+                    <div id="dashboardArticles" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+                        <!-- Articles akan diisi oleh JavaScript -->
+                    </div>
+                    <div id="noArticles" style="text-align: center; padding: 2rem; color: #999; display: none;">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+                        <p>Belum ada artikel</p>
+                        <a href="artikel.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">
+                            <i class="fas fa-arrow-right"></i> Lihat Semua
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ---- QUICK ACTIONS ---- -->
+                <div class="quick-actions">
+                    <!-- Search Books Button -->
+                    <button onclick="window.location.href='books.html'" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Cari Buku
+                    </button>
+
+                    <!-- Returns Button -->
+                    <button onclick="window.location.href='borrow.html'" class="btn btn-primary">
+                        <i class="fas fa-hand-holding"></i> Pengembalian Buku
+                    </button>
+
+                    <!-- Add Book Button (Admin Only) -->
+                    <button onclick="openModal('addBookModal')" class="btn btn-return" id="addBookDashboardBtn" style="display: none;">
+                        <i class="fas fa-plus-circle"></i> Tambah Buku
+                    </button>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODALS - Dialog Windows
+         ============================================================ -->
+
+    <!-- Add Book Modal (Admin Feature) -->
+    <div id="addBookModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus"></i> Tambah Buku Baru</h2>
+                <button class="close-modal" onclick="closeModal('addBookModal')">&times;</button>
+            </div>
+
+            <form id="addBookFormDash" onsubmit="submitAddBook(event)" style="padding: 1.5rem;">
+                <!-- Book Title Input -->
+                <div class="form-group">
+                    <label for="bookTitleDash">Judul Buku *</label>
+                    <input type="text" id="bookTitleDash" required placeholder="Masukkan judul buku">
+                </div>
+
+                <!-- Author Input -->
+                <div class="form-group">
+                    <label for="bookAuthorDash">Penulis *</label>
+                    <input type="text" id="bookAuthorDash" required placeholder="Nama penulis">
+                </div>
+
+                <!-- Category Select -->
+                <div class="form-group">
+                    <label for="bookCategoryDash">Kategori *</label>
+                    <select id="bookCategoryDash" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="AI">AI / Machine Learning</option>
+                        <option value="Database">Database</option>
+                        <option value="Cloud">Cloud Computing</option>
+                        <option value="Teknologi">Teknologi Umum</option>
+                    </select>
+                </div>
+
+                <!-- Year Input -->
+                <div class="form-group">
+                    <label for="bookYearDash">Tahun Terbit *</label>
+                    <input type="number" id="bookYearDash" min="1900" max="2026" required placeholder="Tahun terbit">
+                </div>
+
+                <!-- ISBN Input (Optional) -->
+                <div class="form-group">
+                    <label for="bookISBNDash">ISBN (Opsional)</label>
+                    <input type="text" id="bookISBNDash" placeholder="ISBN 13 digit">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    <i class="fas fa-save"></i> Simpan Buku
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         SCRIPTS - JavaScript Files
+         ============================================================ -->
+    
+    <!-- Main utilities and functions -->
+    <script src="script-refactored.js"></script>
+    
+    <!-- Page-specific script -->
+    <script>
+        /**
+         * Initialize dashboard on page load
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Get current user
+                const currentUser = getCurrentUser();
+                
+                if (currentUser) {
+                    // Set user name in header
+                    const userNameEl = document.getElementById('userName');
+                    if (userNameEl) {
+                        userNameEl.textContent = currentUser.username;
+                    }
+
+                    // Handle role-based UI visibility
+                    const adminMenu = document.getElementById('adminMenu');
+                    const peminjamMenu = document.getElementById('peminjamMenu');
+                    const addBookBtn = document.getElementById('addBookDashboardBtn');
+
+                    if (currentUser.role === 'admin') {
+                        // Admin user: hide Peminjaman, show Tambah Buku
+                        if (peminjamMenu) peminjamMenu.style.display = 'none';
+                        if (addBookBtn) addBookBtn.style.display = 'block';
+                    } else {
+                        // Regular user: hide admin menu
+                        if (adminMenu) {
+                            adminMenu.style.display = 'none';
+                            const prevDivider = adminMenu.previousElementSibling;
+                            if (prevDivider && prevDivider.classList.contains('sidebar-divider')) {
+                                prevDivider.style.display = 'none';
+                            }
+                        }
+                    }
+                }
+
+                // Load latest articles
+                loadDashboardArticles();
+            } catch (error) {
+                console.error('Error initializing dashboard:', error);
+            }
+        });
+
+        /**
+         * Tambah buku baru ke sistem
+         * @param {Event} event - Form submission event
+         */
+        function submitAddBook(event) {
+            event.preventDefault();
+
+            try {
+                const title = document.getElementById('bookTitleDash').value.trim();
+                const author = document.getElementById('bookAuthorDash').value.trim();
+                const category = document.getElementById('bookCategoryDash').value;
+                const year = document.getElementById('bookYearDash').value;
+                const isbn = document.getElementById('bookISBNDash').value.trim();
+
+                // Validasi input
+                if (!title || !author || !category || !year) {
+                    alert('❌ Semua field wajib diisi!');
+                    return;
+                }
+
+                // Tambah buku menggunakan utility function
+                const success = addNewBook({
+                    title: title,
+                    author: author,
+                    category: category,
+                    year: parseInt(year),
+                    isbn: isbn
+                });
+
+                if (success) {
+                    alert(`✅ Buku "${title}" berhasil ditambahkan!\n\nBuku sekarang tersedia di halaman Peminjaman.`);
+                    
+                    // Reset form
+                    document.getElementById('addBookFormDash').reset();
+                    closeModal('addBookModal');
+                } else {
+                    alert('❌ Gagal menambahkan buku. Silakan coba lagi.');
+                }
+            } catch (error) {
+                console.error('Error adding book:', error);
+                alert('❌ Terjadi kesalahan. Silakan coba lagi.');
+            }
+        }
+
+        /**
+         * Load and display latest articles on dashboard
+         */
+        function loadDashboardArticles() {
+            try {
+                const articles = getLatestArticles(6);
+                const dashboardArticles = document.getElementById('dashboardArticles');
+                const noArticles = document.getElementById('noArticles');
+
+                if (articles.length === 0) {
+                    dashboardArticles.style.display = 'none';
+                    noArticles.style.display = 'block';
+                    return;
+                }
+
+                dashboardArticles.innerHTML = articles.map((article, index) => {
+                    const excerpt = (article.content || '').substring(0, 80) + '...';
+                    
+                    return `
+                        <div class="card" style="cursor: pointer; overflow: hidden;" onclick="openArticleDetail(${index})">
+                            <div style="height: 150px; background: linear-gradient(135deg, #006400, #228B22); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                                ${article.image ? `<img src="${article.image}" alt="" style="width: 100%; height: 100%; object-fit: cover;">` : '<i class="fas fa-newspaper"></i>'}
+                            </div>
+                            <div style="padding: 1rem;">
+                                <span class="badge" style="background: #FFFACD; color: #006400; margin-bottom: 0.5rem; display: inline-block;">${article.category}</span>
+                                <h3 style="font-size: 1rem; color: #006400; margin: 0.5rem 0;">${article.title}</h3>
+                                <p style="color: #666; font-size: 0.9rem; margin: 0.5rem 0; line-height: 1.4;">${excerpt}</p>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; font-size: 0.85rem; color: #999;">
+                                    <i class="fas fa-user"></i>
+                                    <span>${article.author}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error loading articles:', error);
+            }
+        }
+
+        /**
+         * Open article detail view
+         * @param {number} index - Article index
+         */
+        function openArticleDetail(index) {
+            try {
+                localStorage.setItem('selectedArticleIndex', index);
+                window.location.href = 'artikel.html?id=' + index;
+            } catch (error) {
+                console.error('Error opening article:', error);
+            }
+        }
+    </script>
+</body>
+</html>

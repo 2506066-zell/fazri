@@ -1,0 +1,165 @@
+<!-- 
+    HAMBURGER MENU IMPLEMENTATION EXAMPLE
+    Copy-paste ke dashboard.html dashboard-header section
+    
+    Ini adalah contoh lengkap untuk mobile navigation
+-->
+
+<!-- HEADER EXAMPLE (untuk dashboard.html) -->
+<header class="dashboard-header">
+    <div class="header-left">
+        <!-- Hamburger menu button - TAMBAH INI -->
+        <button class="btn-menu" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <h1>
+            <i class="fas fa-book"></i>
+            <span>Perpustakaan</span>
+        </h1>
+    </div>
+    
+    <div class="header-right">
+        <div class="user-info">
+            <div class="user-avatar" id="userInitial">A</div>
+            <span id="userName">Admin</span>
+        </div>
+        <button onclick="logout()" title="Logout" aria-label="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+</header>
+
+<!-- SIDEBAR CONTOH -->
+<aside class="dashboard-sidebar">
+    <!-- Navigation items -->
+    <a href="#" class="nav-item active" onclick="return false;">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+    </a>
+    <a href="#" class="nav-item" onclick="return false;">
+        <i class="fas fa-book"></i>
+        <span>Buku</span>
+    </a>
+    <a href="#" class="nav-item" onclick="return false;">
+        <i class="fas fa-history"></i>
+        <span>Peminjaman</span>
+    </a>
+    <a href="#" class="nav-item" onclick="return false;">
+        <i class="fas fa-cog"></i>
+        <span>Pengaturan</span>
+    </a>
+    
+    <div class="sidebar-divider"></div>
+    
+    <button onclick="logout()" class="nav-item" style="border: none; background: none; cursor: pointer; width: 100%; text-align: left; color: #555;">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</aside>
+
+<!-- ========================================
+    CSS UNTUK HAMBURGER BUTTON
+    ======================================== -->
+<style>
+/* Hamburger menu button - Mobile only */
+.btn-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-menu:hover {
+    opacity: 0.8;
+}
+
+.btn-menu:active {
+    opacity: 0.6;
+}
+
+/* Show hamburger on mobile */
+@media (max-width: 767px) {
+    .btn-menu {
+        display: flex !important;
+    }
+}
+
+/* Hide hamburger on tablet+ */
+@media (min-width: 768px) {
+    .btn-menu {
+        display: none !important;
+    }
+}
+
+/* Mobile sidebar toggle */
+@media (max-width: 767px) {
+    .dashboard-sidebar {
+        position: fixed;
+        left: 0;
+        top: 60px;
+        right: 0;
+        max-height: calc(100vh - 60px);
+        z-index: 99;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .dashboard-sidebar:not(.active) {
+        display: none !important;
+    }
+    
+    .dashboard-sidebar.active {
+        display: flex !important;
+    }
+}
+</style>
+
+<!-- ========================================
+    JAVASCRIPT UNTUK FUNGSI
+    Sudah ditambahkan di script.js, 
+    jadi tinggal gunakan!
+    ======================================== -->
+<script>
+// Fungsi toggle menu sudah ada di script.js
+// Gunakan: toggleMobileMenu()
+// atau: closeMobileMenuOnItemClick()
+</script>
+
+<!-- ========================================
+    TESTING CHECKLIST
+    ======================================== -->
+<!--
+☑ Hamburger button visible di mobile (≤ 767px)
+☑ Hamburger button hidden di tablet+ (≥ 768px)
+☑ Click hamburger → sidebar appear
+☑ Click menu item → sidebar close
+☑ Click outside → sidebar close
+☑ All items touchable (44x44px)
+☑ Menu smooth animation
+☑ No layout jump saat toggle
+☑ Responsive ke semua ukuran
+-->
+
+<!-- ========================================
+    INTEGRATION INSTRUCTIONS
+    ======================================== -->
+<!--
+1. Copy-paste hamburger button ke dashboard-header
+2. Pastikan dashboard-sidebar ada di HTML
+3. Pastikan script.js di-load sebelum body close
+4. Test di Chrome DevTools mobile view
+5. Test di actual mobile device
+6. Verify semua nav items clickable
+
+IMPORTANT: 
+- Fungsi toggleMobileMenu() sudah ada di script.js
+- Jangan duplicate atau override fungsi
+- Ensure .active class di nav-item untuk active state
+-->

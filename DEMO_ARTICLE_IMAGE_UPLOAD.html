@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Upload Gambar Artikel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-header {
+            background: linear-gradient(135deg, #006400 0%, #228B22 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .demo-header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .demo-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .demo-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 100, 0, 0.1);
+        }
+
+        .demo-section h2 {
+            color: #006400;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #006400;
+            border-radius: 4px;
+        }
+
+        .feature-item h3 {
+            margin: 0 0 10px 0;
+            color: #006400;
+            font-size: 16px;
+        }
+
+        .feature-item p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .process-step {
+            background: linear-gradient(135deg, #f0fff0 0%, #fffacd 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #006400;
+            position: relative;
+        }
+
+        .process-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: #006400;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .process-step h4 {
+            margin: 0 0 10px 0;
+            color: #006400;
+            padding-top: 5px;
+        }
+
+        .process-step p {
+            margin: 0;
+            color: #333;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            background: #f5f5f5;
+            color: #006400;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: #fafafa;
+        }
+
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+
+        .demo-image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .preview-card {
+            background: white;
+            border: 2px dashed #006400;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .preview-info {
+            padding: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #006400 0%, #228B22 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .stat-box .label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin: 5px 0 0 0;
+        }
+
+        .btn-demo {
+            display: inline-block;
+            background: #006400;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-demo:hover {
+            background: #004d00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 100, 0, 0.3);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <div class="demo-header">
+            <h1>🖼️ Demo: Upload Gambar Artikel</h1>
+            <p>Fitur upload gambar dengan preview dan penyimpanan di database</p>
+        </div>
+
+        <!-- Feature Overview -->
+        <div class="demo-section">
+            <h2><i class="fas fa-star"></i> Fitur Utama</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>📸 Upload Gambar</h3>
+                    <p>Admin dapat upload gambar langsung dari perangkat tanpa perlu URL</p>
+                </div>
+                <div class="feature-item">
+                    <h3>✨ Preview Otomatis</h3>
+                    <p>Gambar ditampilkan secara otomatis sebelum publikasi</p>
+                </div>
+                <div class="feature-item">
+                    <h3>💾 Base64 Storage</h3>
+                    <p>Gambar disimpan sebagai base64 dalam localStorage (offline-ready)</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎨 Tampilan Menarik</h3>
+                    <p>Grid layout responsive dengan card-based design yang elegan</p>
+                </div>
+                <div class="feature-item">
+                    <h3>✅ Validasi File</h3>
+                    <p>Otomatis validasi tipe file dan ukuran maksimal 2MB</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📱 Responsive</h3>
+                    <p>Tampilan sempurna di desktop, tablet, dan mobile</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Process Flow -->
+        <div class="demo-section">
+            <h2><i class="fas fa-arrow-right"></i> Alur Penggunaan</h2>
+            <div class="process-flow">
+                <div class="process-step" data-step="1">
+                    <h4>Login Admin</h4>
+                    <p>Masuk dengan akun admin untuk akses fitur pembuatan artikel</p>
+                </div>
+                <div class="process-step" data-step="2">
+                    <h4>Tulis Artikel</h4>
+                    <p>Klik tombol "Tulis Artikel" di halaman artikel atau dashboard</p>
+                </div>
+                <div class="process-step" data-step="3">
+                    <h4>Isi Form</h4>
+                    <p>Lengkapi judul, kategori, konten, dan upload gambar</p>
+                </div>
+                <div class="process-step" data-step="4">
+                    <h4>Upload Gambar</h4>
+                    <p>Pilih file gambar dari perangkat atau drag-drop</p>
+                </div>
+                <div class="process-step" data-step="5">
+                    <h4>Preview</h4>
+                    <p>Lihat preview gambar sebelum publikasi</p>
+                </div>
+                <div class="process-step" data-step="6">
+                    <h4>Publikasikan</h4>
+                    <p>Klik tombol Publikasikan, artikel langsung tampil</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison -->
+        <div class="demo-section">
+            <h2><i class="fas fa-exchange-alt"></i> Perbandingan: Sebelum vs Sesudah</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspek</th>
+                        <th class="error">❌ Sebelum (URL Input)</th>
+                        <th class="success">✅ Sesudah (File Upload)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Input Gambar</td>
+                        <td>Harus paste URL gambar</td>
+                        <td>Upload file dari perangkat</td>
+                    </tr>
+                    <tr>
+                        <td>Preview</td>
+                        <td>Tidak ada preview</td>
+                        <td>Preview otomatis setelah pilih</td>
+                    </tr>
+                    <tr>
+                        <td>Validasi</td>
+                        <td>Manual validasi URL</td>
+                        <td>Otomatis validasi file type & size</td>
+                    </tr>
+                    <tr>
+                        <td>Storage</td>
+                        <td>Hanya simpan URL</td>
+                        <td>Simpan base64 image dalam DB</td>
+                    </tr>
+                    <tr>
+                        <td>Offline</td>
+                        <td>Gambar tidak tampil offline</td>
+                        <td>Gambar tetap tampil offline</td>
+                    </tr>
+                    <tr>
+                        <td>User Experience</td>
+                        <td>Ribet, perlu URL eksternal</td>
+                        <td>Mudah, upload langsung</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- File Size Statistics -->
+        <div class="demo-section">
+            <h2><i class="fas fa-chart-bar"></i> Statistik & Batasan</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <p class="number">2MB</p>
+                    <p class="label">Max File Size</p>
+                </div>
+                <div class="stat-box">
+                    <p class="number">6</p>
+                    <p class="label">Artikel di Dashboard</p>
+                </div>
+                <div class="stat-box">
+                    <p class="number">∞</p>
+                    <p class="label">Artikel di Halaman</p>
+                </div>
+                <div class="stat-box">
+                    <p class="number">5-10MB</p>
+                    <p class="label">localStorage Limit</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>ℹ️ Info:</strong> Karena base64 encoding meningkatkan ukuran file ~33%, rekomendasi ukuran gambar original adalah 1-1.5MB untuk optimal storage.
+            </div>
+        </div>
+
+        <!-- Code Example -->
+        <div class="demo-section">
+            <h2><i class="fas fa-code"></i> Implementasi Teknis</h2>
+
+            <h3>1. Event Listener untuk File Upload</h3>
+            <div class="code-block">
+document.getElementById('articleImage').addEventListener('change', handleImageUpload);
+
+function handleImageUpload(e) {
+    const file = e.target.files[0];
+    
+    // Validasi tipe file
+    if (!file.type.startsWith('image/')) {
+        alert('File harus berupa gambar');
+        return;
+    }
+    
+    // Validasi ukuran (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+        alert('Ukuran maksimal 2MB');
+        return;
+    }
+    
+    // Convert ke base64
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        selectedImageBase64 = event.target.result;
+        // Tampilkan preview
+        document.getElementById('previewImage').src = selectedImageBase64;
+    };
+    reader.readAsDataURL(file);
+}
+            </div>
+
+            <h3>2. Menyimpan Artikel dengan Gambar</h3>
+            <div class="code-block">
+const newArticle = {
+    id: 1,
+    userId: "uuid",
+    author: "Admin IPM",
+    title: "Judul Artikel",
+    category: "Kategori",
+    content: "Isi artikel...",
+    image: selectedImageBase64, // Base64 string
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+};
+
+localStorage.setItem('articles', JSON.stringify([...articles, newArticle]));
+            </div>
+
+            <h3>3. Menampilkan Gambar di Artikel</h3>
+            <div class="code-block">
+// Di template rendering
+${article.image ? `<img src="${article.image}" alt="">` : '<i class="fas fa-newspaper"></i>'}
+
+// Gambar langsung tampil dari base64 data URI
+// Contoh: <img src="data:image/jpeg;base64,/9j/4AAQ...">
+            </div>
+        </div>
+
+        <!-- Validation Details -->
+        <div class="demo-section">
+            <h2><i class="fas fa-check-circle"></i> Validasi & Error Handling</h2>
+
+            <h3>File Type Validation</h3>
+            <div class="alert alert-success">
+                <strong>✅ Diterima:</strong> image/jpeg, image/png, image/gif, image/webp, image/svg+xml
+            </div>
+
+            <h3>File Size Validation</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Kondisi</th>
+                    <th>Hasil</th>
+                </tr>
+                <tr>
+                    <td>&lt; 2MB</td>
+                    <td><span class="success">✅ Diterima</span></td>
+                </tr>
+                <tr>
+                    <td>2MB - 5MB</td>
+                    <td><span class="error">❌ Ditolak - "Ukuran gambar maksimal 2MB"</span></td>
+                </tr>
+                <tr>
+                    <td>&gt; 5MB</td>
+                    <td><span class="error">❌ Ditolak - "Ukuran gambar terlalu besar"</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- UI Components -->
+        <div class="demo-section">
+            <h2><i class="fas fa-palette"></i> Komponen UI</h2>
+
+            <h3>Article Card (Halaman Artikel)</h3>
+            <div class="demo-image-preview">
+                <div class="preview-card">
+                    <div style="background: linear-gradient(135deg, #228B22 0%, #FFD700 100%); height: 150px; display: flex; align-items: center; justify-content: center; font-size: 48px; color: #006400;">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="preview-info">
+                        <strong>Judul Artikel</strong><br>
+                        300x200px dengan image
+                    </div>
+                </div>
+            </div>
+
+            <h3>Article Card Mini (Dashboard)</h3>
+            <div class="demo-image-preview">
+                <div class="preview-card" style="max-width: 200px;">
+                    <div style="background: linear-gradient(135deg, #228B22 0%, #FFD700 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #006400;">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="preview-info">
+                        <strong>Judul Mini</strong><br>
+                        150x150px compact
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Storage Information -->
+        <div class="demo-section">
+            <h2><i class="fas fa-database"></i> Informasi Storage</h2>
+
+            <div class="alert alert-info">
+                <strong>💾 Base64 Encoding:</strong> Gambar disimpan sebagai string base64 yang dimulai dengan "data:image/jpeg;base64,..." sehingga dapat langsung ditampilkan di tag &lt;img&gt;.
+            </div>
+
+            <h3>Struktur Data Artikel</h3>
+            <div class="code-block">
+{
+  "id": 1,
+  "userId": "user-uuid-123",
+  "author": "Admin IPM",
+  "title": "Judul Artikel Terbaru",
+  "category": "Berita",
+  "content": "Isi artikel...",
+  "image": "data:image/jpeg;base64,/9j/4AAQSkZJ...",
+  "createdAt": "2024-01-15T10:30:00Z",
+  "updatedAt": "2024-01-15T10:30:00Z"
+}
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Catatan:</strong> localStorage memiliki batas ~5-10MB per domain. Dengan rata-rata artikel berisi gambar 1.5MB base64, rekomendasi maksimal adalah 6-10 artikel dengan gambar sebelum pertimbangkan cloud storage.
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="demo-section">
+            <h2><i class="fas fa-rocket"></i> Langkah Selanjutnya (Opsional)</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>🖼️ Image Compression</h3>
+                    <p>Kompres gambar sebelum upload untuk menghemat storage</p>
+                </div>
+                <div class="feature-item">
+                    <h3>✂️ Image Cropping</h3>
+                    <p>Tambahkan tool untuk crop/resize gambar sebelum save</p>
+                </div>
+                <div class="feature-item">
+                    <h3>☁️ Cloud Storage</h3>
+                    <p>Integrasi dengan Cloudinary atau AWS S3 untuk storage unlimited</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🖼️ Gallery</h3>
+                    <p>Tambah multiple images per artikel dengan lightbox gallery</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📊 Analytics</h3>
+                    <p>Track view count, engagement rate per artikel</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📤 Export</h3>
+                    <p>Fitur export artikel ke PDF dengan gambar included</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="demo-section" style="text-align: center; background: linear-gradient(135deg, #f0fff0 0%, #fffacd 100%); border: 2px solid #006400;">
+            <h2 style="margin-top: 0;">Siap Mencoba?</h2>
+            <p style="color: #666; margin: 15px 0;">Ikuti langkah-langkah di atas untuk menggunakan fitur upload gambar artikel</p>
+            <a href="artikel.html" class="btn-demo">
+                <i class="fas fa-arrow-right"></i> Ke Halaman Artikel
+            </a>
+            <a href="dashboard.html" class="btn-demo" style="background: #FFD700; color: #006400; margin-left: 10px;">
+                <i class="fas fa-home"></i> Ke Dashboard
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 40px; padding: 20px; color: #999; border-top: 1px solid #e0e0e0;">
+            <p>
+                <i class="fas fa-info-circle"></i>
+                Demo Article Image Upload System v1.0<br>
+                Perpustakaan Digital PC IPM Panawuan
+            </p>
+        </div>
+    </div>
+</body>
+</html>

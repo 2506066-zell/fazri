@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#006400">
+    <meta name="description" content="Website PC IPM Panawuan - Platform Perpustakaan Digital">
+    <title>Login - Digital Library IPM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--ipm-light-green) 0%, var(--ipm-light-yellow) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 50px rgba(0, 100, 0, 0.15);
+            border-top: 5px solid var(--ipm-green);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header img {
+            width: 180px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .form-header h1 {
+            color: var(--ipm-green);
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .form-header p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--ipm-green);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--ipm-green);
+            background-color: #ffffff;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--ipm-green) 0%, #004d00 100%);
+            color: rgb(233, 233, 233);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            min-height: 44px;
+            width: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 100, 0, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: var(--ipm-green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .minimalist-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: var(--ipm-light-green);
+            color: rgb(148, 148, 148);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .minimalist-btn:hover {
+            background: var(--ipm-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 100, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="form-header">
+                <img src="ipm (2).png" alt="Logo IPM">
+                <h1>PC IPM Panawuan</h1>
+                <p>"Dari Pemahaman, Menata Arah Gerak" </p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        placeholder="Masukkan username" 
+                        required
+                        aria-label="Username"
+                        autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Masukkan password" 
+                        required
+                        aria-label="Password"
+                        autocomplete="current-password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="role"><i class="fas fa-shield-alt"></i> Role</label>
+                    <select id="role" aria-label="Pilih role">
+                        <option value="user">User Biasa</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            
+            <div class="register-link">
+                Belum punya akun? 
+                <a href="register.html" title="Daftar akun baru">
+                    <i class="fas fa-user-plus"></i> Daftar Sekarang
+                </a>
+                <br>
+                <a href="about-ipm.html" class="minimalist-btn" title="Tentang Kami">
+                    <i class="fas fa-building"></i> Tentang Kami
+                </a>
+                <a href="articles-public.html" class="minimalist-btn" title="Artikel">
+                    <i class="fas fa-newspaper"></i> Artikel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize demo users jika belum ada
+        document.addEventListener('DOMContentLoaded', function() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.length === 0) {
+                // Create default demo users
+                localStorage.setItem('users', JSON.stringify([
+                    {
+                        id: 1,
+                        username: 'admin',
+                        fullname: 'Administrator',
+                        password: 'admin123',
+                        role: 'admin',
+                        status: 'active',
+                        rantingName: 'Admin',
+                        rantingType: 'Admin',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 2,
+                        username: 'user',
+                        fullname: 'User Demo',
+                        password: 'user123',
+                        role: 'user',
+                        status: 'active',
+                        rantingName: 'Ranting Sekolah',
+                        rantingType: 'Ranting Sekolah',
+                        createdAt: new Date().toISOString()
+                    }
+                ]));
+            }
+        });
+    
+        // Login handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const selectedRole = document.getElementById('role').value;
+            
+            // Get users dari localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (!user) {
+                alert('❌ Username atau password salah!');
+                document.getElementById('username').focus();
+                return;
+            }
+            
+            if (user.role !== selectedRole) {
+                alert('❌ Role yang dipilih tidak sesuai dengan akun ini!');
+                document.getElementById('role').focus();
+                return;
+            }
+            
+            // Set current user
+            localStorage.setItem('currentUser', JSON.stringify({
+                id: user.id,
+                username: user.username,
+                fullname: user.fullname,
+                role: user.role
+            }));
+            
+            alert('✓ Login berhasil!');
+            
+            // Redirect ke dashboard sesuai role
+            if (user.role === 'admin') {
+                window.location.href = 'admin.html';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

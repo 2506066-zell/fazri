@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Digital Library</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Article cards in dashboard */
+        .article-card-mini {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 100, 0, 0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border-left: 4px solid var(--ipm-green);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .article-card-mini:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 100, 0, 0.15);
+        }
+
+        .article-image-mini {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, var(--ipm-light-green) 0%, var(--ipm-light-yellow) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--ipm-green);
+            overflow: hidden;
+        }
+
+        .article-image-mini img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-content-mini {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-category-mini {
+            display: inline-block;
+            background: var(--ipm-light-yellow);
+            color: var(--ipm-green);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            width: fit-content;
+        }
+
+        .article-title-mini {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ipm-green);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .article-excerpt-mini {
+            color: #666;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .article-footer-mini {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 11px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .articles-section {
+                margin-top: 30px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-book-reader"></i> Perpustakaan PC IPM Panawuan</h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-avatar">U</div>
+                    <span id="userName">User</span>
+                </div>
+                <button onclick="logout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content" style="display: flex;">
+            <!-- Sidebar -->
+            <nav class="dashboard-sidebar">
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="home.html" class="nav-item">
+                    <i class="fas fa-globe"></i> Beranda Organisasi
+                </a>
+                <a href="books.html" class="nav-item" id="peminjamMenu">
+                    <i class="fas fa-hand-holding-heart"></i> Peminjaman
+                </a>
+                <a href="artikel.html" class="nav-item">
+                    <i class="fas fa-newspaper"></i> Artikel
+                </a>
+                <a href="borrow.html" class="nav-item">
+                    <i class="fas fa-undo"></i> Pengembalian
+                </a>
+                <div class="sidebar-divider"></div>
+                <a href="admin.html" class="nav-item" id="adminMenu">
+                    <i class="fas fa-user-cog"></i> Admin
+                </a>
+                <div class="sidebar-divider"></div>
+                <a href="index.html" class="nav-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="dashboard-main">
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card" data-type="totalBooks">
+                        <div class="stat-icon book">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Total Buku</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-type="borrowedBooks">
+                        <div class="stat-icon borrow">
+                            <i class="fas fa-hand-holding"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Buku Dipinjam</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-type="availableBooks">
+                        <div class="stat-icon book">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Buku Tersedia</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-type="dueBooks">
+                        <div class="stat-icon user">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Jatuh Tempo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="table-container">
+                    <h2 class="table-title">Aktivitas Terbaru</h2>
+                    <div class="table-responsive">
+                        <table id="activityTable">
+                            <thead>
+                                <tr>
+                                    <th>Buku</th>
+                                    <th>User</th>
+                                    <th>Aksi</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Latest Articles Section -->
+                <div class="articles-section" style="margin-top: 40px;">
+                    <h2 class="table-title" style="margin-bottom: 20px;">
+                        <i class="fas fa-newspaper" style="margin-right: 10px; color: var(--ipm-green);"></i>
+                        Artikel Terbaru
+                    </h2>
+                    <div id="dashboardArticles" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+                        <!-- Articles will be loaded here by JavaScript -->
+                    </div>
+                    <div id="noArticles" style="text-align: center; padding: 40px; color: #999; display: none;">
+                        <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 15px; display: block;"></i>
+                        <p>Belum ada artikel</p>
+                        <a href="artikel.html" class="btn-action" style="margin-top: 15px; display: inline-block; padding: 10px 20px;">
+                            <i class="fas fa-arrow-right"></i> Lihat Semua Artikel
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions" style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button onclick="window.location.href='books.html'" class="btn-action btn-borrow" style="padding: 15px 30px;">
+                        <i class="fas fa-search"></i> Cari Buku
+                    </button>
+                    <button onclick="window.location.href='borrow.html'" class="btn-action btn-borrow" style="padding: 15px 30px;">
+                        <i class="fas fa-hand-holding"></i> Pengembalian Buku
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Set user name on dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                document.getElementById('userName').textContent = currentUser.username;
+                
+                // Hide Admin menu for non-admin users
+                const adminMenu = document.getElementById('adminMenu');
+                const peminjamMenu = document.getElementById('peminjamMenu');
+                
+                if (currentUser.role !== 'admin') {
+                    // User biasa: hide Admin menu
+                    if (adminMenu) {
+                        adminMenu.style.display = 'none';
+                        const prevDivider = adminMenu.previousElementSibling;
+                        if (prevDivider && prevDivider.classList.contains('sidebar-divider')) {
+                            prevDivider.style.display = 'none';
+                        }
+                    }
+                }
+            }
+
+            // Load latest articles
+            loadDashboardArticles();
+        });
+
+        function loadDashboardArticles() {
+            const articles = JSON.parse(localStorage.getItem('articles')) || [];
+            const dashboardArticles = document.getElementById('dashboardArticles');
+            const noArticles = document.getElementById('noArticles');
+
+            if (articles.length === 0) {
+                dashboardArticles.style.display = 'none';
+                noArticles.style.display = 'block';
+                return;
+            }
+
+            // Sort by date descending and take first 6 articles
+            const latestArticles = articles
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, 6);
+
+            dashboardArticles.innerHTML = latestArticles.map((article, index) => {
+                const date = new Date(article.createdAt);
+                const dateString = date.toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                const excerpt = article.content.substring(0, 80) + '...';
+
+                return `
+                    <div class="article-card-mini" onclick="openArticleDetail(${articles.indexOf(article)})" style="cursor: pointer;">
+                        <div class="article-image-mini">
+                            ${article.image ? `<img src="${article.image}" alt="">` : '<i class="fas fa-newspaper"></i>'}
+                        </div>
+                        <div class="article-content-mini">
+                            <span class="article-category-mini">${article.category}</span>
+                            <h3 class="article-title-mini">${article.title}</h3>
+                            <p class="article-excerpt-mini">${excerpt}</p>
+                            <div class="article-footer-mini">
+                                <i class="fas fa-user"></i>
+                                <span>${article.author}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openArticleDetail(index) {
+            // Navigate to article page and show article detail
+            localStorage.setItem('selectedArticleIndex', index);
+            window.location.href = 'artikel.html?id=' + index;
+        }
+    </script>
+</body>
+</html>

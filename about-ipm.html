@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - IPM Panawuan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==================== ABOUT IPM PAGE REVAMPED ==================== */
+        
+        /* Header */
+        .about-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: var(--primary-white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .about-header h1 {
+            font-size: clamp(28px, 6vw, 42px);
+            margin: 0 0 15px 0;
+            font-weight: 700;
+        }
+
+        .about-header .tagline {
+            font-size: clamp(16px, 4vw, 24px);
+            margin: 0 0 10px 0;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .about-header p {
+            font-size: clamp(14px, 3vw, 20px);
+            margin: 0;
+            opacity: 0.85;
+        }
+
+        /* Main Container */
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Top Bar */
+        .about-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .about-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 12px;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-green);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-green);
+            border-bottom-color: var(--primary-yellow);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Bidang Grid */
+        .bidang-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            margin-bottom: 40px;
+        }
+
+        .bidang-card {
+            background: var(--primary-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--primary-yellow);
+            margin-bottom: 15px;
+        }
+
+        .bidang-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--primary-white);
+            transition: background 0.2s;
+        }
+
+        .bidang-header:hover {
+            background: var(--bg-light);
+        }
+
+        .bidang-icon {
+            font-size: 32px;
+            color: var(--primary-green);
+            flex-shrink: 0;
+        }
+
+        .bidang-title-section {
+            flex-grow: 1;
+        }
+
+        .bidang-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin: 0 0 4px 0;
+        }
+
+        .bidang-count {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .chevron-icon {
+            font-size: 18px;
+            color: var(--primary-green);
+            transition: transform 0.3s;
+        }
+
+        .chevron-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .bidang-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .bidang-body.open {
+            max-height: 1000px;
+            overflow: visible;
+        }
+
+        .members-container {
+            padding: 15px 25px;
+            background: var(--bg-light);
+        }
+
+        .members-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .member-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: var(--primary-white);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .member-item:hover {
+            border-left-color: var(--primary-yellow);
+            transform: translateX(5px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .member-info {
+            flex-grow: 1;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: var(--primary-green);
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .member-position {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .member-action {
+            color: var(--primary-green);
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        .member-item:hover .member-action {
+            opacity: 1;
+        }
+
+        /* Modal - Member List */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--primary-white);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: var(--primary-white);
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--primary-white);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        /* Member Table */
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .members-table thead {
+            background: var(--bg-light);
+        }
+
+        .members-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--primary-green);
+            border-bottom: 2px solid var(--border-light);
+            font-size: 13px;
+        }
+
+        .members-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13px;
+        }
+
+        .members-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        .member-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            font-weight: bold;
+            font-size: 14px;
+            object-fit: cover;
+            overflow: hidden;
+        }
+
+        /* Member Photo - Detail View */
+        .member-photo {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-yellow);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            font-weight: bold;
+            font-size: 20px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .member-row:hover {
+            background: var(--primary-white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .member-info {
+            flex-grow: 1;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 4px;
+        }
+
+        .member-position {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .member-status {
+            font-size: 12px;
+            color: green;
+            font-weight: 600;
+        }
+
+        /* Member Detail Modal */
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-green);
+            color: var(--primary-white);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--secondary-green);
+            transform: scale(1.1);
+        }
+
+        .detail-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: var(--primary-white);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .detail-photo-container {
+            width: 250px;
+            height: 250px;
+            background: var(--primary-yellow);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-size: 90px;
+            font-weight: bold;
+            margin: 0 auto 25px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .detail-position {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .detail-status {
+            display: inline-block;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            margin-top: 10px;
+        }
+
+        .detail-body {
+            padding: 30px 20px;
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+        }
+
+        .detail-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .detail-quote {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary-yellow);
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .detail-quote-empty {
+            color: var(--text-light);
+            font-style: normal;
+        }
+
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-info-item {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: var(--radius-md);
+        }
+
+        .detail-info-label {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .detail-info-value {
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: var(--border-light);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Program Grid */
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .program-card {
+            background: var(--primary-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--primary-yellow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .program-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .program-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--primary-yellow);
+        }
+
+        .program-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .program-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--text-light);
+            background: var(--bg-light);
+            padding: 5px 10px;
+            border-radius: var(--radius-full);
+            width: fit-content;
+            margin-bottom: 10px;
+        }
+
+        .program-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin: 0 0 8px 0;
+        }
+
+        .program-description {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.5;
+            flex-grow: 1;
+            margin: 0 0 10px 0;
+        }
+
+        .program-bidang {
+            display: inline-block;
+            background: var(--bg-light);
+            color: var(--primary-green);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        .about-footer {
+            background: var(--bg-light);
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: var(--radius-md);
+            margin-top: 50px;
+        }
+
+        .about-footer p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin: 0 0 20px 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: var(--primary-white);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 100, 0, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-header {
+                padding: 40px 20px;
+            }
+
+            .about-header h1 {
+                font-size: 28px;
+            }
+
+            .about-header .tagline {
+                font-size: 14px;
+            }
+
+            .about-topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .bidang-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .members-table {
+                font-size: 12px;
+            }
+
+            .members-table th,
+            .members-table td {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-container {
+                padding: 20px;
+            }
+
+            .about-title {
+                font-size: 22px;
+            }
+
+            .tabs-container {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .bidang-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="about-header">
+        <div class="tagline">"Dari Pemahaman, Menata Arah Gerak"</div>
+        <p>PC IPM PANAWUAN</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="about-container">
+        <!-- Top Bar -->
+        <div class="about-topbar">
+            <h2 class="about-title">Bidang dan Program Kerja</h2>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab('bidang')">
+                <i class="fas fa-sitemap"></i> Bidang
+            </button>
+            
+            <button class="tab-btn" onclick="switchTab('program')">
+                <i class="fas fa-calendar-alt"></i> Program Kerja
+            </button>
+        </div>
+
+        <!-- Tab 1: Bidang -->
+        <div id="bidang" class="tab-content active">
+            <div class="bidang-grid" id="bidangGrid">
+                <!-- Bidang cards akan diisi oleh JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tab 2: Program Kerja -->
+        <div id="program" class="tab-content">
+            <div class="program-grid" id="programGrid">
+                <!-- Program cards akan diisi oleh JavaScript -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="about-footer">
+            <p>Ingin mengetahui lebih lanjut tentang struktur dan program IPM Panawuan?</p>
+            <div class="cta-buttons">
+                <a href="index.html" class="cta-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Login
+                </a>
+                <a href="articles-public.html" class="cta-btn">
+                    <i class="fas fa-newspaper"></i> Baca Artikel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - View Members -->
+    <div class="modal" id="membersModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="memberModalTitle">Anggota Bidang</h2>
+                </div>
+                <button class="close-modal" onclick="closeMembersModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="membersList" style="display: flex; flex-direction: column;">
+                    <!-- Members akan diisi oleh JavaScript -->
+                </div>
+                <div id="emptyMembers" class="empty-state" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <p>Belum ada anggota di bidang ini</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Member Detail -->
+    <div class="modal" id="memberDetailModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeMemberDetail()" title="Tutup">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="detail-header">
+                <div class="detail-photo-container">
+                    <img id="detailPhoto" src="" alt="">
+                    <span id="detailPhotoInitial" style="display: none;"></span>
+                </div>
+                <h2 class="detail-name" id="detailName">Nama Anggota</h2>
+                <div class="detail-position" id="detailPosition">Posisi</div>
+                <div class="detail-status">● Aktif</div>
+            </div>
+            <div class="detail-body">
+                
+                <div class="detail-section">
+                    <div class="detail-section-title">Tentang</div>
+                    <div class="detail-quote" id="detailQuote">
+                        <span class="detail-quote-empty">Belum ada quote pribadi</span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-section-title">Informasi</div>
+                    <div class="detail-info-grid">
+                        <div class="detail-info-item">
+                            <div class="detail-info-label">Nama Lengkap</div>
+                            <div class="detail-info-value" id="detailFullName">-</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="detail-info-label">Posisi</div>
+                            <div class="detail-info-value" id="detailPos">-</div>
+                        </div>
+                        <div class="detail-info-item">
+                            <div class="detail-info-label">Bidang</div>
+                            <div class="detail-info-value" id="detailBidang">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure
+        const bidangData = [
+            { id: 1, name: 'Ketua Umum', icon: 'fas fa-graduation-cap', description: 'Pengembangan kader dan talent IPM' },
+            { id: 2, name: 'Serketaris', icon: 'fas fa-book', description: 'Program pendidikan dan pelatihan' },
+            { id: 3, name: 'Bendahara', icon: 'fas fa-hands-helping', description: 'Kegiatan sosial dan pemberdayaan' },
+            { id: 4, name: 'Perkaderan', icon: 'fas fa-chart-line', description: 'Program ekonomi dan bisnis' },
+            { id: 5, name: 'Pengkajian Ilmu Pengetahuan', icon: 'fas fa-heartbeat', description: 'Program kesehatan dan gaya hidup' },
+            { id: 6, name: 'Kajian Dakwah Islam', icon: 'fas fa-leaf', description: 'Program lingkungan berkelanjutan' },
+            { id: 7, name: 'Advokasi', icon: 'fas fa-gavel', description: 'Advokasi sosial dan hukum' },
+            { id: 8, name: 'Ipmawati', icon: 'fas fa-female', description: 'Pemberdayaan dan isu-isu perempuan' },
+        ];
+
+        // Initialize sample members dengan foto
+        function initSampleMembers() {
+            const existingMembers = localStorage.getItem('bidangMembers');
+            if (!existingMembers) {
+                const sampleMembers = [
+                    { id: 1, bidangId: 1, name: 'Ahmad Hadid', position: 'Ketua', photo: 'https://via.placeholder.com/150?text=Ahmad', quote: 'Setiap langkah kecil adalah progres besar menuju masa depan cerah' },
+                    { id: 2, bidangId: 1, name: 'Rina Wijaya', position: 'Wakil Ketua', photo: 'https://via.placeholder.com/150?text=Rina', quote: 'Bersama kita lebih kuat, bersama kita bisa mengubah dunia' },
+                    { id: 3, bidangId: 1, name: 'Budi Santoso', position: 'Anggota', photo: 'https://via.placeholder.com/150?text=Budi', quote: 'Dedikasi dan kerja keras adalah kunci kesuksesan' },
+                    { id: 4, bidangId: 2, name: 'Siti Nurhaliza', position: 'Ketua', photo: 'https://via.placeholder.com/150?text=Siti', quote: 'Pendidikan adalah investasi terbaik untuk masa depan' },
+                    { id: 5, bidangId: 2, name: 'Rudi Hermawan', position: 'Anggota', photo: 'https://via.placeholder.com/150?text=Rudi', quote: 'Mari kita ciptakan perubahan positif bersama' },
+                    { id: 6, bidangId: 3, name: 'Maya Putri', position: 'Ketua', photo: 'https://via.placeholder.com/150?text=Maya', quote: 'Berbagi kebaikan adalah kehidupan yang bermakna' },
+                    { id: 7, bidangId: 4, name: 'Eka Prasetya', position: 'Ketua', photo: 'https://via.placeholder.com/150?text=Eka', quote: 'Inovasi dan kreativitas adalah jantung perubahan' },
+                    { id: 8, bidangId: 9, name: 'Faisal Hakim', position: 'Ketua', photo: 'https://via.placeholder.com/150?text=Faisal', quote: 'Hikmah adalah cahaya yang menuntun setiap langkah.' },
+                    { id: 9, bidangId: 9, name: 'Lina Marlina', position: 'Anggota', photo: 'https://via.placeholder.com/150?text=Lina', quote: 'Berpikir kritis, bertindak bijaksana.' },
+                ];
+                localStorage.setItem('bidangMembers', JSON.stringify(sampleMembers));
+            }
+        }
+
+        // Initialize page
+        function initPage() {
+            initSampleMembers();
+            loadBidang();
+            loadProgram();
+        }
+
+        // Load bidang
+        function loadBidang() {
+            const grid = document.getElementById('bidangGrid');
+            grid.innerHTML = bidangData.map(bidang => {
+                const members = getBidangMembers(bidang.id);
+                return `
+                    <div class="bidang-card">
+                        <div class="bidang-header" data-bidang-id="${bidang.id}">
+                            <div class="bidang-icon"><i class="${bidang.icon}"></i></div>
+                            <div class="bidang-title-section">
+                                <h3 class="bidang-name">${bidang.name}</h3>
+                                <div class="bidang-count"><i class="fas fa-users"></i> ${members.length} Anggota</div>
+                            </div>
+                            <i class="fas fa-chevron-down chevron-icon"></i>
+                        </div>
+                        <div class="bidang-body" data-bidang-id="${bidang.id}">
+                            <div class="members-container">
+                                <div class="members-list">
+                                    ${members.map(member => `
+                                        <div class="member-item" data-member-id="${member.id}">
+                                            <div class="member-info">
+                                                <div class="member-name">${member.name}</div>
+                                                <div class="member-position">${member.position || 'Anggota'}</div>
+                                            </div>
+                                            <div class="member-action"><i class="fas fa-arrow-right"></i></div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Setup event listeners after rendering
+            bindBidangEvents();
+        }
+
+        // Bind bidang events
+        function bindBidangEvents() {
+            // Toggle bidang members
+            document.querySelectorAll('.bidang-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const bidangId = this.dataset.bidangId;
+                    const body = document.querySelector(`.bidang-body[data-bidang-id="${bidangId}"]`);
+                    const icon = this.querySelector('.chevron-icon');
+                    
+                    body.classList.toggle('open');
+                    icon.classList.toggle('open');
+                });
+            });
+            
+            // Member click
+            document.querySelectorAll('.member-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const memberId = this.dataset.memberId;
+                    showMemberDetail(memberId);
+                });
+            });
+        }
+
+        // Load program
+        function loadProgram() {
+            const programs = JSON.parse(localStorage.getItem('programs')) || [];
+            const grid = document.getElementById('programGrid');
+            
+            if (programs.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <i class="fas fa-inbox"></i>
+                        <p>Belum ada program kerja</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = programs.map(program => `
+                <div class="program-card">
+                    <div class="program-image">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="program-content">
+                        <div class="program-date">
+                            <i class="fas fa-calendar"></i> ${program.date}
+                        </div>
+                        <h3 class="program-title">${program.name}</h3>
+                        <p class="program-description">${program.description}</p>
+                        <span class="program-bidang">${program.bidang}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Get bidang members
+        function getBidangMembers(bidangId) {
+            const members = JSON.parse(localStorage.getItem('bidangMembers')) || [];
+            return members.filter(m => m.bidangId === bidangId);
+        }
+
+        // Show member detail
+        function showMemberDetail(memberId) {
+            const allMembers = JSON.parse(localStorage.getItem('bidangMembers')) || [];
+            const numId = parseInt(memberId);
+            const member = allMembers.find(m => m.id === numId);
+            
+            if (!member) {
+                console.error('Member not found:', memberId);
+                return;
+            }
+            
+            const bidang = bidangData.find(b => b.id === member.bidangId);
+            
+            // Update detail modal
+            document.getElementById('detailName').textContent = member.name;
+            document.getElementById('detailPosition').textContent = member.position || 'Anggota';
+            document.getElementById('detailFullName').textContent = member.name;
+            document.getElementById('detailPos').textContent = member.position || 'Anggota';
+            document.getElementById('detailBidang').textContent = bidang ? bidang.name : '-';
+            
+            // Handle quote
+            const quoteElement = document.getElementById('detailQuote');
+            if (member.quote) {
+                quoteElement.innerHTML = `"${member.quote}"`;
+                quoteElement.classList.remove('detail-quote-empty');
+            } else {
+                quoteElement.innerHTML = '<span class="detail-quote-empty">Belum ada quote pribadi</span>';
+                quoteElement.classList.add('detail-quote-empty');
+            }
+            
+            // Handle photo with immediate display
+            const photoImg = document.getElementById('detailPhoto');
+            const photoInitial = document.getElementById('detailPhotoInitial');
+            
+            if (member.photo) {
+                photoImg.style.display = 'block';
+                photoInitial.style.display = 'none';
+                photoImg.src = member.photo;
+            } else {
+                photoImg.style.display = 'none';
+                photoInitial.textContent = member.name.charAt(0).toUpperCase();
+                photoInitial.style.display = 'block';
+            }
+            
+            // Show detail modal
+            document.getElementById('memberDetailModal').classList.add('active');
+        }
+
+        // Close member detail modal
+        function closeMemberDetail() {
+            document.getElementById('memberDetailModal').classList.remove('active');
+        }
+
+        // Close modal
+        function closeMembersModal() {
+            document.getElementById('membersModal').classList.remove('active');
+        }
+
+        // Switch tab
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activate button
+            event.target.classList.add('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('membersModal');
+            if (event.target === modal) {
+                closeMembersModal();
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
